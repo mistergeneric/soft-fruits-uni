@@ -70,6 +70,7 @@ public class Batch {
 
     private String buildBatchNumber() {
         String batchNumber = "";
+        //TODO - fix generated batch number format
         SimpleDateFormat df1 = new SimpleDateFormat("dd/MM/yy");
         batchNumber += df1.format(this.recievedDate) + "-";
         batchNumber = batchNumber.replaceAll("/", "");
