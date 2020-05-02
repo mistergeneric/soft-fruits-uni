@@ -1,6 +1,7 @@
 package model;
 
 import model.fruit.Fruit;
+import model.fruit.Strawberry;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -70,12 +71,11 @@ public class Batch {
 
     private String buildBatchNumber() {
         String batchNumber = "";
-        //TODO - fix generated batch number format
         SimpleDateFormat df1 = new SimpleDateFormat("dd/MM/yy");
         batchNumber += df1.format(this.recievedDate) + "-";
         batchNumber = batchNumber.replaceAll("/", "");
-        batchNumber += this.fruit.getTitle() + "-";
-        batchNumber += Integer.toString(farmNumber);
+        batchNumber += this.fruit.getBatchCode() + "-";
+        batchNumber += String.format("%03d", farmNumber);
         return batchNumber;
     }
 

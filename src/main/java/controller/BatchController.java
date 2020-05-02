@@ -16,10 +16,7 @@ public class BatchController {
         Scanner scanner = new Scanner(System.in);
         //TODO - refactor this method
         while (run) {
-            System.out.println("CREATE NEW BATCH");
-            System.out.println(new Date());
-            System.out.println();
-            System.out.println("Enter Farm Number (001 to 999)");
+            System.out.println(presentFarmChoice());
             String userInput = "";
             int farmNumber;
             userInput = scanner.nextLine();
@@ -34,8 +31,7 @@ public class BatchController {
                 System.out.println("Please enter a number between 001 and 999");
                 continue;
             }
-            System.out.println();
-            System.out.println("Select a fruit type (1. Strawberries,2. Raspberries,3. Blackberries,4. Gooseberries)");
+            System.out.println(presentFruitChoice());
             int fruitChoice;
             userInput = scanner.nextLine();
             try {
@@ -50,8 +46,7 @@ public class BatchController {
                 continue;
             }
             Fruit fruit = pickFruit(fruitChoice);
-            System.out.println();
-            System.out.println("Enter batch weight: (KG)");
+            System.out.println(presentWeightChoice());
             int weight;
             userInput = scanner.nextLine();
             try {
@@ -65,11 +60,8 @@ public class BatchController {
                 System.out.println("Please choose valid weight");
                 continue;
             }
-            System.out.println();
-            System.out.println();
             Batch batch = new Batch(fruit, weight, farmNumber);
-            System.out.println(batch.toString());
-            System.out.println("Is this correct? (Y/N)");
+            System.out.println(presentFinalBatch(batch));
             String isSuccess = "";
             isSuccess = scanner.next();
             if (isSuccess.equals("Y") || isSuccess.equals("y")) {
@@ -79,6 +71,28 @@ public class BatchController {
                 break;
             }
         }
+    }
+
+    public String presentFinalBatch(Batch batch) {
+        String batchMessage = "\n\n" + batch.toString();
+        batchMessage += "Is this correct? (Y/N)";
+        return batchMessage;
+    }
+
+    public String presentWeightChoice() {
+        return ("\nEnter batch weight: (KG)\n");
+    }
+
+    public String presentFruitChoice() {
+        return "\nSelect a fruit type (1. Strawberries,2. Raspberries,3. Blackberries,4. Gooseberries)\n";
+    }
+
+    public String presentFarmChoice() {
+        String farmChoice = "";
+        farmChoice += "CREATE NEW BATCH\n";
+        farmChoice += new Date() + "\n\n";
+        farmChoice += "Enter Farm Number (001 to 999) \n";
+        return farmChoice;
     }
 
     public Fruit pickFruit(int fruitChoice) {
@@ -96,7 +110,7 @@ public class BatchController {
         }
     }
 
-    private void printBatch(Batch batch) {
+    public void printBatch(Batch batch) {
         Gson gson = new Gson();
         try {
             Writer writer = new FileWriter("src/main/resources/" + batch.getBatchNumber() + ".json");

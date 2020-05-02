@@ -202,7 +202,7 @@ modules.xml
 
 # BlueJ files
 *.ctxt
-
+src/main/java/resources/*.json
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
