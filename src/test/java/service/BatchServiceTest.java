@@ -37,18 +37,6 @@ public class BatchServiceTest {
     }
 
     @Test
-    public void printBatch() {
-        Batch batch = new Batch(new Strawberry(), 12, 12);
-        assertEquals(batch.toString(), "Batch contains: \n" +
-                "Fruit type: Strawberry\n" +
-                "From farm number: 12\n" +
-                "recieved on: " + batch.getRecievedDate() + "\n");
-        jsonService.printBatch(batch);
-        File file = new File("src/main/resources/" + batch.getBatchNumber() + ".json");
-        assertTrue(file.length() > 0);
-    }
-
-    @Test
     public void makeBatchMessages() {
         assertEquals(batchService.presentFarmChoice(), "CREATE NEW BATCH\n" +
                 new Date() +
