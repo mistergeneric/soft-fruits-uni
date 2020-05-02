@@ -3,6 +3,8 @@ package controller;
 import com.google.gson.Gson;
 import model.Batch;
 import model.fruit.*;
+import service.BatchService;
+import service.JsonService;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,12 +13,22 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class BatchController {
+
+    private BatchService batchService;
+    private JsonService jsonService;
+
+    public BatchController()
+    {
+        this.batchService = new BatchService();
+    }
+
+
     public void makeBatch() {
         boolean run = true;
         Scanner scanner = new Scanner(System.in);
         //TODO - refactor this method
         while (run) {
-            System.out.println(presentFarmChoice());
+            System.out.println(batchService.presentFarmChoice());
             String userInput = "";
             int farmNumber;
             userInput = scanner.nextLine();
@@ -31,7 +43,7 @@ public class BatchController {
                 System.out.println("Please enter a number between 001 and 999");
                 continue;
             }
-            System.out.println(presentFruitChoice());
+            System.out.println(batchService.presentFruitChoice());
             int fruitChoice;
             userInput = scanner.nextLine();
             try {
@@ -45,8 +57,8 @@ public class BatchController {
                 System.out.println("Please choose valid fruit");
                 continue;
             }
-            Fruit fruit = pickFruit(fruitChoice);
-            System.out.println(presentWeightChoice());
+            Fruit fruit = batchService.pickFruit(fruitChoice);
+            System.out.println(batchService.presentWeightChoice());
             int weight;
             userInput = scanner.nextLine();
             try {
@@ -61,64 +73,14 @@ public class BatchController {
                 continue;
             }
             Batch batch = new Batch(fruit, weight, farmNumber);
-            System.out.println(presentFinalBatch(batch));
+            System.out.println(batchService.presentFinalBatch(batch));
             String isSuccess = "";
             isSuccess = scanner.next();
             if (isSuccess.equals("Y") || isSuccess.equals("y")) {
                 run = false;
-                printBatch(batch);
-
-                break;
-            }
+                jsonService.printBatch(batch); }
         }
     }
 
-    public String presentFinalBatch(Batch batch) {
-        String batchMessage = "\n\n" + batch.toString();
-        batchMessage += "Is this correct? (Y/N)";
-        return batchMessage;
-    }
 
-    public String presentWeightChoice() {
-        return ("\nEnter batch weight: (KG)\n");
-    }
-
-    public String presentFruitChoice() {
-        return "\nSelect a fruit type (1. Strawberries,2. Raspberries,3. Blackberries,4. Gooseberries)\n";
-    }
-
-    public String presentFarmChoice() {
-        String farmChoice = "";
-        farmChoice += "CREATE NEW BATCH\n";
-        farmChoice += new Date() + "\n\n";
-        farmChoice += "Enter Farm Number (001 to 999) \n";
-        return farmChoice;
-    }
-
-    public Fruit pickFruit(int fruitChoice) {
-        switch (fruitChoice) {
-            case 1:
-                return new Strawberry();
-            case 2:
-                return new Raspberry();
-            case 3:
-                return new Blackberry();
-            case 4:
-                return new Gooseberry();
-            default:
-                return null;
-        }
-    }
-
-    public void printBatch(Batch batch) {
-        Gson gson = new Gson();
-        try {
-            Writer writer = new FileWriter("src/main/resources/" + batch.getBatchNumber() + ".json");
-            gson.toJson(batch, writer);
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("There has been an error printing to json file format");
-        }
-    }
 }
