@@ -2,12 +2,20 @@ package model.fruit;
 
 import model.BatchCode;
 
-public abstract class Fruit {
+import java.util.Map;
+
+//discovered in this iteration, that I cannot rebuild a POJO from a json file if Fruit remains abstract
+public class Fruit {
     private String title;
     private BatchCode batchCode;
     public Fruit(){
         title = this.getClass().getSimpleName();
         batchCode = chooseBatchCode();
+    }
+    public Fruit(String title, BatchCode batchCode) {
+        this.title = title;
+        this.batchCode = batchCode;
+
     }
     public String getTitle() {
         return title;

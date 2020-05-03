@@ -5,6 +5,8 @@ import model.fruit.Strawberry;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Batch {
     private String batchNumber;
@@ -12,12 +14,15 @@ public class Batch {
     private int weight;
     private int farmNumber;
     private Date recievedDate;
+    private Map<String, Integer> grade;
+
     public Batch(Fruit fruit, int weight, int farmNumber) {
         this.fruit = fruit;
         this.weight = weight;
         this.farmNumber = farmNumber;
         this.recievedDate = new Date();
-        batchNumber = buildBatchNumber();
+        this.batchNumber = buildBatchNumber();
+        this.grade = new HashMap<>();
 
     }
 
@@ -61,12 +66,22 @@ public class Batch {
         this.recievedDate = recievedDate;
     }
 
+    public Map<String, Integer> getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Map<String, Integer> grade) {
+        this.grade = new HashMap<>();
+        this.grade = grade;
+    }
+
     @Override
     public String toString() {
         return "Batch contains: \n" +
                 "Fruit type: " + fruit.getClass().getSimpleName() + "\n" +
                 "From farm number: " + farmNumber + "\n" +
-                "recieved on: " + recievedDate + "\n";
+                "recieved on: " + recievedDate + "\n" +
+                "Batch number: " + batchNumber + "\n";
     }
 
     private String buildBatchNumber() {
@@ -77,6 +92,18 @@ public class Batch {
         batchNumber += this.fruit.getBatchCode() + "-";
         batchNumber += String.format("%03d", farmNumber);
         return batchNumber;
+    }
+
+    public String printGrades() {
+        String printGrades = "";
+        if(grade == null || this.grade.size() < 1) {
+            return "No graded fruit";
+        }
+        for (Map.Entry mapElement : grade.entrySet()) {
+            printGrades += (mapElement.getKey() + " " + ((int)mapElement.getValue())) + "%";
+            printGrades += ":  " + this.weight * (int)mapElement.getValue() + "KG \n";
+        }
+        return printGrades;
     }
 
 
