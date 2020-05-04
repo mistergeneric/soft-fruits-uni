@@ -3,6 +3,7 @@ package model.fruit;
 import model.BatchCode;
 
 import java.util.Map;
+import java.util.Objects;
 
 //discovered in this iteration, that I cannot rebuild a POJO from a json file if Fruit remains abstract
 public class Fruit {
@@ -42,6 +43,11 @@ public class Fruit {
             default:
                 return null;
         }
+    }
+
+    @Override
+    public boolean equals(Object otherFruit) {
+        return otherFruit.getClass().getSimpleName().equals(this.getClass().getSimpleName());
     }
 
 }

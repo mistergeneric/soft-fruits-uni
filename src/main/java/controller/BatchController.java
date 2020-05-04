@@ -3,6 +3,7 @@ package controller;
 import model.Batch;
 import model.fruit.Fruit;
 import service.BatchService;
+import service.FruitService;
 import service.JsonService;
 
 import java.util.HashMap;
@@ -12,6 +13,7 @@ public class BatchController {
 
     private BatchService batchService;
     private JsonService jsonService;
+    private FruitService fruitService;
 
     public BatchController() {
         this.batchService = new BatchService();
@@ -43,7 +45,7 @@ public class BatchController {
                 System.out.println("Please choose valid fruit");
                 continue;
             }
-            Fruit fruit = batchService.pickFruit(fruitChoice);
+            Fruit fruit = fruitService.pickFruit(fruitChoice);
             System.out.println(batchService.presentWeightChoice());
             int weight;
             userInput = scanner.nextLine();
@@ -60,7 +62,7 @@ public class BatchController {
             isSuccess = scanner.next();
             if (isSuccess.equals("Y") || isSuccess.equals("y")) {
                 run = false;
-                jsonService.printBatch(batch);
+                batchService.saveBatch(batch);
             }
         }
     }
@@ -81,7 +83,7 @@ public class BatchController {
         String reprint = "Y";
         while(reprint.equals("Y")) {
             System.out.println("Please enter a batch number:");
-            Batch batch = jsonService.findJsonBatch(scanner.nextLine());
+            Batch batch = batchService.findBatch(scanner.nextLine());
             if(batch == null) {
                 System.out.println("Press any key to return to main menu");
                 break;
@@ -118,7 +120,7 @@ public class BatchController {
                 System.out.println("Okay, re-enter information");
                 continue;
             }
-            jsonService.printBatch(batch);
+            batchService.saveBatch(batch);
             System.out.println("Would you like to edit another batch?");
             System.out.println(("Y/N"));
             reprint = scanner.nextLine();
@@ -132,7 +134,7 @@ public class BatchController {
         while(reprint.equals("Y")) {
             System.out.println("Enter batch number:");
             String batchNumber = scanner.nextLine();
-            Batch batch = jsonService.findJsonBatch(batchNumber);
+            Batch batch = batchService.findBatch(batchNumber);
             if(batch == null) {
                 System.out.println("Press any key to return to main menu");
                 break;

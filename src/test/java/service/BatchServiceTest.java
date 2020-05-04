@@ -20,18 +20,20 @@ import static org.junit.Assert.*;
 
 public class BatchServiceTest {
     private BatchService batchService;
+    private FruitService fruitService;
     @Before
     public void setUp()
     {
          batchService = new BatchService();
+         fruitService = new FruitService();
     }
     @Test
     public void pickFruit() {
-        assertTrue(batchService.pickFruit(1) instanceof Strawberry);
-        assertTrue(batchService.pickFruit(2) instanceof Raspberry);
-        assertTrue(batchService.pickFruit(4) instanceof Gooseberry);
+        assertTrue(fruitService.pickFruit(1) instanceof Strawberry);
+        assertTrue(fruitService.pickFruit(2) instanceof Raspberry);
+        assertTrue(fruitService.pickFruit(4) instanceof Gooseberry);
 
-        assertNull(batchService.pickFruit(5));
+        assertNull(fruitService.pickFruit(5));
 
 
     }

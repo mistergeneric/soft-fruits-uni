@@ -2,23 +2,15 @@ package service;
 
 import com.google.gson.Gson;
 import model.Batch;
+import model.Price;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class JsonService {
-    public void printBatch(Batch batch) {
-        Gson gson = new Gson();
-        try {
-            Writer writer = new FileWriter("src/main/resources/" + batch.getBatchNumber() + ".json");
-            gson.toJson(batch, writer);
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("There has been an error printing to json file format");
-        }
-    }
+
 
     public ArrayList<Batch> jsonToBatches() {
         Gson gson = new Gson();
@@ -40,14 +32,26 @@ public class JsonService {
         return allBatches;
     }
 
-    public Batch findJsonBatch(String batchNumber) {
+    public Object findData(String filename, Object object) {
         Gson gson = new Gson();
         try {
-            Reader reader = new FileReader("src/main/resources/" + batchNumber + ".json");
-            return gson.fromJson(reader, Batch.class);
+            Reader reader = new FileReader("src/main/resources/" + filename + ".json");
+            return gson.fromJson(reader, (Type) object);
         } catch (FileNotFoundException e) {
-            System.out.println("Batch not found");
+            System.out.println("Data not found");
             return null;
+        }
+    }
+
+    public void saveFile(String fileName, Object object) {
+        Gson gson = new Gson();
+        try {
+            Writer writer = new FileWriter("src/main/resources/" + fileName + ".json");
+            gson.toJson(object, writer);
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("There has been an error printing to json file format");
         }
     }
 }

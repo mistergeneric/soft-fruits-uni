@@ -12,11 +12,17 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class BatchService {
+    private final JsonService jsonService = new JsonService();
+
 
     public String presentFinalBatch(Batch batch) {
         String batchMessage = "\n\n" + batch.toString();
         batchMessage += "Is this correct? (Y/N)";
         return batchMessage;
+    }
+
+    public void saveBatch(Batch batch) {
+        jsonService.saveFile(batch.getBatchNumber(), batch);
     }
 
     public String presentWeightChoice() {
@@ -33,21 +39,6 @@ public class BatchService {
         farmChoice += new Date() + "\n\n";
         farmChoice += "Enter Farm Number (001 to 999) \n";
         return farmChoice;
-    }
-
-    public Fruit pickFruit(int fruitChoice) {
-        switch (fruitChoice) {
-            case 1:
-                return new Strawberry();
-            case 2:
-                return new Raspberry();
-            case 3:
-                return new Blackberry();
-            case 4:
-                return new Gooseberry();
-            default:
-                return null;
-        }
     }
 
     public int generateFarmNumber(String userInput) {
@@ -81,6 +72,10 @@ public class BatchService {
             weight = Integer.parseInt(userInput);
         }
         return weight;
+    }
+
+    public Batch findBatch(String batchNumber) {
+         return (Batch) jsonService.findData(batchNumber, Batch.class);
     }
 
 }
