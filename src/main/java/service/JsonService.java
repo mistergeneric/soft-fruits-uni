@@ -18,7 +18,7 @@ public class JsonService {
         File[] listOfFiles = folder.listFiles();
         ArrayList<Batch> allBatches = new ArrayList<>();
         for (File file : listOfFiles) {
-            if (file.isFile()) {
+            if (file.isFile() && !file.getName().equals("Pricing.json")) {
                 try {
                     Reader reader = new FileReader("src/main/resources/" + file.getName());
                     Batch batch = gson.fromJson(reader, Batch.class);

@@ -1,15 +1,14 @@
 package service;
 
+import com.google.gson.reflect.TypeToken;
 import model.Batch;
 import model.Grade;
 import model.Price;
-import model.fruit.*;
+import model.fruit.Fruit;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.function.DoubleBinaryOperator;
+import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class PriceService {
     private final JsonService jsonService = new JsonService();
@@ -37,16 +36,48 @@ public class PriceService {
         return priceGrades;
     }
 
-    public Price findPrice() {
-        return (Price) jsonService.findData("Pricing", Price.class);
+    public HashSet<Price> findPrices() {
+        Type setType = new TypeToken<HashSet<Price>>(){}.getType();
+        return (HashSet<Price>) jsonService.findData("Pricing", setType);
+
+    }
+
+    public Price costOfFruit(Date date, Fruit fruit) {
+        HashSet<Price> prices = findPrices();
+        Price price = new Price(fruit, new HashMap<>(), date);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        for(Price p : prices) {
+            boolean isDay = sdf.format(p.getDatePriced()).equals(sdf.format(date));
+            boolean isFruit = p.getFruitType().equals(fruit);
+            if(isDay && isFruit) {
+                return p;
+            }
+        }
+        return price;
     }
 
     public Set<Price> checkForDuplicatePrices(Price price, Set<Price> prices) {
-        for(Price p : prices) {
-            if(p.getFruitType().equals(price.getFruitType()))  {
+        if (prices == null) {
+            prices = new HashSet<>();
+        }
+        for (Price p : prices) {
+            if (p.getFruitType().equals(price.getFruitType())) {
                 prices.remove(p);
             }
         }
         return prices;
+    }
+
+    public Date findLatestPricedDate(Set<Price> prices) {
+        Date date = null;
+        for(Price p : prices) {
+            if (date == null) {
+                date = p.getDatePriced();
+            }
+            if (date.before(p.getDatePriced())) {
+                date = p.getDatePriced();
+            }
+        }
+        return date;
     }
 }

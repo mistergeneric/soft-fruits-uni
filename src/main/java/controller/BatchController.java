@@ -1,13 +1,14 @@
 package controller;
 
 import model.Batch;
+import model.Price;
 import model.fruit.Fruit;
 import service.BatchService;
 import service.FruitService;
 import service.JsonService;
+import service.PriceService;
 
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 public class BatchController {
 
@@ -18,6 +19,7 @@ public class BatchController {
     public BatchController() {
         this.batchService = new BatchService();
         this.jsonService = new JsonService();
+        fruitService = new FruitService();
     }
 
 
@@ -69,11 +71,15 @@ public class BatchController {
 
     public void listAllBatches() {
         Scanner scanner = new Scanner(System.in);
+        PriceService priceService = new PriceService();
+
         String currentUserChoice = "Y";
         while(true) {
             boolean isUserFinished = !currentUserChoice.equals("Y");
             if (isUserFinished) break;
-            jsonService.jsonToBatches().forEach(System.out::println);
+            jsonService.jsonToBatches().forEach((
+                    batch -> System.out.println(batch.toString() + "Cost of batch: " +
+                            priceService.costOfFruit(batch.getRecievedDate(), batch.getFruit()).displayCost() + "\n")));
             System.out.println("Would you like to reprint?");
             System.out.println(("Y/N"));
             currentUserChoice = scanner.nextLine();

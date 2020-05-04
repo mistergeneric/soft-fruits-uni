@@ -26,7 +26,7 @@ public class BatchService {
     }
 
     public String presentWeightChoice() {
-        return ("\nEnter batch weight: (KG)\n");
+        return ("\nEnter batch weight (1-100): (KG)\n");
     }
 
     public String presentFruitChoice() {

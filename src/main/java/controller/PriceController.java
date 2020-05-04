@@ -1,10 +1,8 @@
 package controller;
 
-import model.Batch;
 import model.Grade;
 import model.Price;
 import model.fruit.Fruit;
-import model.fruit.Strawberry;
 import service.FruitService;
 import service.PriceService;
 
@@ -17,9 +15,16 @@ public class PriceController {
         PriceService priceService = new PriceService();
         FruitService fruitService = new FruitService();
         Scanner scanner = new Scanner(System.in);
+
+
         Fruit fruit;
         Price price;
-        Set<Price> prices = new HashSet<>();
+
+
+        Set<Price> prices = priceService.findPrices();
+
+
+
         String currentUserChoice = "Y";
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         System.out.println("System date:   " + sdf.format(new Date()));
@@ -43,6 +48,7 @@ public class PriceController {
                 System.out.println("Invalid choice. Please try again");
                 continue;
             }
+            Map<Grade, Double> priceGrades = priceService.buildPrices(scanner);
 
             System.out.println("Are prices correct? (Y/N)");
             if(!scanner.nextLine().equals("Y")) {
@@ -50,13 +56,15 @@ public class PriceController {
                 continue;
             }
 
-            Map<Grade, Double> priceGrades = priceService.buildPrices(scanner);
 
             price = new Price(fruit, priceGrades, new Date());
             prices = priceService.checkForDuplicatePrices(price, prices);
+
             prices.add(price);
             if(prices.size() < 4) {
                 System.out.println("You must add prices for every fruit type");
+                System.out.println();
+                System.out.println();
                 continue;
             }
             System.out.println("Edit fruit prices again?");

@@ -2,6 +2,7 @@ package model;
 
 import model.fruit.Fruit;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,8 +11,6 @@ public class Price {
     private Fruit fruitType;
     private Map<Grade, Double> fruitPrices;
     private Date datePriced;
-
-    public Price () {}
 
 
     public Price(Fruit fruitType, Map<Grade, Double> fruitPrices, Date datePriced) {
@@ -44,5 +43,13 @@ public class Price {
         this.fruitPrices = fruitPrices;
     }
 
+    public String displayCost() {
+        double price = 0;
+        for (Map.Entry<Grade, Double> entry : this.fruitPrices.entrySet()) {
+            price += entry.getValue();
 
+        }
+        DecimalFormat df = new DecimalFormat("#.##");
+        return price <= 0.0 ?  "No valid data" : "£" + df.format(price);
+    }
 }

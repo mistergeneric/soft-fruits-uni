@@ -46,8 +46,9 @@ public class Fruit {
     }
 
     @Override
-    public boolean equals(Object otherFruit) {
-        return otherFruit.getClass().getSimpleName().equals(this.getClass().getSimpleName());
+    public boolean equals(Object obj) {
+        Fruit otherFruit = (Fruit) obj;
+        return otherFruit.getTitle().equals(this.getTitle());
     }
 
 }

@@ -78,7 +78,7 @@ public class Batch {
     @Override
     public String toString() {
         return "Batch contains: \n" +
-                "Fruit type: " + fruit.getClass().getSimpleName() + "\n" +
+                "Fruit type: " + fruit.getTitle() + "\n" +
                 "From farm number: " + farmNumber + "\n" +
                 "recieved on: " + recievedDate + "\n" +
                 "Batch number: " + batchNumber + "\n";

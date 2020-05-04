@@ -1,10 +1,8 @@
 package controller;
 
-import com.sun.xml.internal.ws.addressing.WsaActionUtil;
+import Utils.DateUtils;
 import service.PriceService;
 
-import java.sql.SQLOutput;
-import java.util.Date;
 import java.util.Scanner;
 
 public class MenuController {
@@ -14,9 +12,9 @@ public class MenuController {
 
         System.out.println("Welcome to the Renfrewshire Soft Fruits Co_operative");
         System.out.println();
+        boolean isNoPriceForToday = DateUtils.isNoPriceForToday(priceService);
 
-        //is today
-        if(priceService.findPrice() == null || priceService.findPrice().getDatePriced().compareTo(new Date()) < 0) {
+        if(isNoPriceForToday || priceService.findPrices() == null) {
             System.out.println("THERE IS NO PRICE IN THE SYSTEM FOR THIS DATE. MOVING TO PRICE CHECK MENU");
             priceController.priceMenu();
         }
@@ -27,10 +25,16 @@ public class MenuController {
 
 
         String choice = scanner.nextLine();
-        if (!(choice.equals("2") || choice.equals("1") || choice.equals("3") || choice.equals("4") || choice.equals("5"))) System.exit(1);
+        boolean isNotValidMenuChoice = !(choice.equals("2") || choice.equals("1") || choice.equals("3") || choice.equals("4") || choice.equals("5"));
+
+
+        if (isNotValidMenuChoice) System.exit(1);
+
+
         mainMenuChoice(Integer.parseInt(choice));
 
     }
+
 
 
     public String listMenuChoices() {
@@ -40,7 +44,8 @@ public class MenuController {
                 "2. List all batches\n" +
                 "3. Show detailed batch information\n" +
                 "4. Grade/sort batch\n" +
-                "5. Quit\n";
+                "5. Pricing \n " +
+                "6. Quit\n";
     }
 
     public void mainMenuChoice(int choice) {
