@@ -69,19 +69,26 @@ public class BatchController {
 
     public void listAllBatches() {
         Scanner scanner = new Scanner(System.in);
-        String reprint = "Y";
-        while(reprint.equals("Y")) {
+        String currentUserChoice = "Y";
+        while(true) {
+            boolean isUserFinished = !currentUserChoice.equals("Y");
+            if (isUserFinished) break;
             jsonService.jsonToBatches().forEach(System.out::println);
             System.out.println("Would you like to reprint?");
             System.out.println(("Y/N"));
-            reprint = scanner.nextLine();
+            currentUserChoice = scanner.nextLine();
         }
 
     }
     public void gradeFruit() {
         Scanner scanner = new Scanner(System.in);
-        String reprint = "Y";
-        while(reprint.equals("Y")) {
+        String currentUserChoice = "Y";
+        while(true) {
+            boolean isUserFinished = !currentUserChoice.equals("Y");
+            if (isUserFinished) break;
+
+
+
             System.out.println("Please enter a batch number:");
             Batch batch = batchService.findBatch(scanner.nextLine());
             if(batch == null) {
@@ -115,23 +122,25 @@ public class BatchController {
             batch.setGrade(grades);
             System.out.println(batchService.presentFinalBatch(batch));
             System.out.println(batch.printGrades());
-            reprint = scanner.nextLine();
-            if(reprint.equals("N") || reprint.equals("n")) {
+            currentUserChoice = scanner.nextLine();
+            if(currentUserChoice.equals("N") || currentUserChoice.equals("n")) {
                 System.out.println("Okay, re-enter information");
                 continue;
             }
             batchService.saveBatch(batch);
             System.out.println("Would you like to edit another batch?");
             System.out.println(("Y/N"));
-            reprint = scanner.nextLine();
+            currentUserChoice = scanner.nextLine();
 
         }
 
     }
     public void showBatchDetail() {
         Scanner scanner = new Scanner(System.in);
-        String reprint = "Y";
-        while(reprint.equals("Y")) {
+        String currentUserChoice = "Y";
+        while(true) {
+            boolean isUserFinished = !currentUserChoice.equals("Y");
+            if (isUserFinished) break;
             System.out.println("Enter batch number:");
             String batchNumber = scanner.nextLine();
             Batch batch = batchService.findBatch(batchNumber);
@@ -143,7 +152,7 @@ public class BatchController {
             System.out.println(batch.printGrades());
             System.out.println("Would you like to find another batch?");
             System.out.println(("Y/N"));
-            reprint = scanner.nextLine();
+            currentUserChoice = scanner.nextLine();
 
         }
 

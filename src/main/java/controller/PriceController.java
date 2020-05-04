@@ -20,10 +20,16 @@ public class PriceController {
         Fruit fruit;
         Price price;
         Set<Price> prices = new HashSet<>();
-        String reprint = "Y";
+        String currentUserChoice = "Y";
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         System.out.println("System date:   " + sdf.format(new Date()));
-        while (reprint.equals("Y")) {
+
+
+
+        while (true) {
+            boolean isUserFinished = !currentUserChoice.equals("Y");
+            if (isUserFinished) break;
+
             System.out.println("Choose a fruit to price:");
             System.out.println("1. Strawberry");
             System.out.println("2. Raspberry");
@@ -38,6 +44,11 @@ public class PriceController {
                 continue;
             }
 
+            System.out.println("Are prices correct? (Y/N)");
+            if(!scanner.nextLine().equals("Y")) {
+                System.out.println("Please try again");
+                continue;
+            }
 
             Map<Grade, Double> priceGrades = priceService.buildPrices(scanner);
 
@@ -48,10 +59,10 @@ public class PriceController {
                 System.out.println("You must add prices for every fruit type");
                 continue;
             }
-            System.out.println("Edit fruit prices?");
+            System.out.println("Edit fruit prices again?");
             System.out.println(("Y/N"));
 
-            reprint = scanner.nextLine();
+            currentUserChoice = scanner.nextLine();
 
         }
 

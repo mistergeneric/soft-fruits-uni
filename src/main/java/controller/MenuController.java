@@ -22,14 +22,7 @@ public class MenuController {
         }
 
 
-        System.out.println("Choose an option below:");
-        System.out.println();
-        System.out.println("1. Create new batch");
-        System.out.println("2. List all batches");
-        System.out.println("3. Show detailed batch information");
-        System.out.println("4. Grade/sort batch");
-        System.out.println("5. Quit");
-        System.out.println();
+        System.out.println(listMenuChoices());
         Scanner scanner = new Scanner(System.in);
 
 
@@ -38,6 +31,18 @@ public class MenuController {
         mainMenuChoice(Integer.parseInt(choice));
 
     }
+
+
+    public String listMenuChoices() {
+        return "Choose an option below:\n" +
+                "\n" +
+                "1. Create new batch\n" +
+                "2. List all batches\n" +
+                "3. Show detailed batch information\n" +
+                "4. Grade/sort batch\n" +
+                "5. Quit\n";
+    }
+
     public void mainMenuChoice(int choice) {
         BatchController batchController = new BatchController();
         PriceController priceController = new PriceController();
