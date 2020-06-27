@@ -47,6 +47,8 @@ public class PriceService {
         Price price = new Price(fruit, new HashMap<>(), date);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         for(Price p : prices) {
+            String format1 = sdf.format(p.getDatePriced());
+            String format2 = sdf.format(date);
             boolean isDay = sdf.format(p.getDatePriced()).equals(sdf.format(date));
             boolean isFruit = p.getFruitType().equals(fruit);
             if(isDay && isFruit) {
@@ -60,11 +62,7 @@ public class PriceService {
         if (prices == null) {
             prices = new HashSet<>();
         }
-        for (Price p : prices) {
-            if (p.getFruitType().equals(price.getFruitType())) {
-                prices.remove(p);
-            }
-        }
+        prices.removeIf(p -> p.getFruitType().equals(price.getFruitType()));
         return prices;
     }
 

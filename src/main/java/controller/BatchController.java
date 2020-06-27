@@ -79,7 +79,7 @@ public class BatchController {
             if (isUserFinished) break;
             jsonService.jsonToBatches().forEach((
                     batch -> System.out.println(batch.toString() + "Cost of batch: " +
-                            priceService.costOfFruit(batch.getRecievedDate(), batch.getFruit()).displayCost() + "\n")));
+                            priceService.costOfFruit(batch.getRecievedDate(), batch.getFruit()).displayCost(batch) + "\n")));
             System.out.println("Would you like to reprint?");
             System.out.println(("Y/N"));
             currentUserChoice = scanner.nextLine();

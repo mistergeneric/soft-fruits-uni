@@ -1,9 +1,8 @@
-import controller.BatchController;
-import controller.MenuController;
+import controller.MainMenuController;
 
 public class Main {
     public static void main(String[] args) {
-        MenuController menu = new MenuController();
+        MainMenuController menu = new MainMenuController();
         while(true) {
             menu.startApp();
         }

@@ -43,10 +43,10 @@ public class Price {
         this.fruitPrices = fruitPrices;
     }
 
-    public String displayCost() {
+    public String displayCost(Batch batch) {
         double price = 0;
         for (Map.Entry<Grade, Double> entry : this.fruitPrices.entrySet()) {
-            price += entry.getValue();
+            price += (entry.getValue() * batch.getGrade().get(entry.getKey().toString()));
 
         }
         DecimalFormat df = new DecimalFormat("#.##");

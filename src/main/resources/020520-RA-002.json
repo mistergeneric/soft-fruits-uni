@@ -1,1 +1,16 @@
-{"batchNumber":"020520-RA-002","fruit":{"title":"Raspberry","batchCode":"RA"},"weight":2,"farmNumber":2,"recievedDate":"May 2, 2020 10:20:31 AM","grade":{"A":70,"B":20,"C":5,"Rejected":5}}
+{
+  "batchNumber": "020520-RA-002",
+  "fruit": {
+    "title": "Raspberry",
+    "batchCode": "RA"
+  },
+  "weight": 2,
+  "farmNumber": 2,
+  "recievedDate": "May 2, 2020 10:20:31 AM",
+  "grade": {
+    "A": 70,
+    "B": 20,
+    "C": 5,
+    "Rejected": 5
+  }
+}

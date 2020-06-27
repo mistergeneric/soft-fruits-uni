@@ -5,7 +5,7 @@ import service.PriceService;
 
 import java.util.Scanner;
 
-public class MenuController {
+public class MainMenuController {
     public void startApp() {
         PriceService priceService = new PriceService();
         PriceController priceController = new PriceController();

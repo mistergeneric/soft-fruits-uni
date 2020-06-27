@@ -1,1 +1,11 @@
-{"batchNumber":"040520-ST-123","fruit":{"title":"Strawberry","batchCode":"ST"},"weight":23,"farmNumber":123,"recievedDate":"May 4, 2020 2:08:06 PM","grade":{}}
+{
+  "batchNumber": "040520-ST-123",
+  "fruit": {
+    "title": "Strawberry",
+    "batchCode": "ST"
+  },
+  "weight": 23,
+  "farmNumber": 123,
+  "recievedDate": "May 4, 2020 2:08:06 PM",
+  "grade": {}
+}
