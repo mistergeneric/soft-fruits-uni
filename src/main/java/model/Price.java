@@ -46,6 +46,9 @@ public class Price {
 
     public Double batchCost(Batch batch) {
         double price = 0;
+        if(batch.getGrade().size() == 0) {
+            return price;
+        }
         for (Map.Entry<Grade, Double> entry : this.fruitPrices.entrySet()) {
             price += (entry.getValue() * batch.getGrade().get(entry.getKey().toString()));
         }

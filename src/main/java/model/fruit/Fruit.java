@@ -30,7 +30,7 @@ public class Fruit {
         this.batchCode = batchCode;
     }
 
-    private BatchCode chooseBatchCode() {
+    public BatchCode chooseBatchCode() {
         switch(this.getClass().getSimpleName()) {
             case "Strawberry":
                 return BatchCode.ST;

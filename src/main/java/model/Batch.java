@@ -131,7 +131,7 @@ public class Batch {
         generateTotalCost();
         StringBuilder batchCost = new StringBuilder("");
         batchCost.append("BatchNumber: ").append(this.batchNumber).append("\n");
-        batchCost.append("Fruit: ").append(this.fruit).append("\n");
+        batchCost.append("Fruit: ").append(this.fruit.toString()).append("\n");
         batchCost.append("Weight: ").append(this.weight).append("\n");
         batchCost.append("Date: ").append(this.recievedDate).append("\n");
         batchCost.append("Cost: ").append(this.totalCost).append("\n");
