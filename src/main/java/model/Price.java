@@ -13,6 +13,7 @@ public class Price {
     private Date datePriced;
 
 
+
     public Price(Fruit fruitType, Map<Grade, Double> fruitPrices, Date datePriced) {
         this.fruitType = fruitType;
         this.fruitPrices = fruitPrices;
@@ -41,6 +42,14 @@ public class Price {
 
     public void setFruitPrices(Map<Grade, Double> fruitPrices) {
         this.fruitPrices = fruitPrices;
+    }
+
+    public Double batchCost(Batch batch) {
+        double price = 0;
+        for (Map.Entry<Grade, Double> entry : this.fruitPrices.entrySet()) {
+            price += (entry.getValue() * batch.getGrade().get(entry.getKey().toString()));
+        }
+        return price;
     }
 
     public String displayCost(Batch batch) {

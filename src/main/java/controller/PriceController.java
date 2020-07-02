@@ -1,13 +1,21 @@
 package controller;
 
+import Utils.DateUtils;
+import model.Batch;
 import model.Grade;
 import model.Price;
 import model.fruit.Fruit;
+import service.BatchService;
 import service.FruitService;
+import service.JsonService;
 import service.PriceService;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PriceController {
 
@@ -76,6 +84,35 @@ public class PriceController {
 
         priceService.savePrice(prices);
 
+    }
+
+    public void transactionReport() {
+        System.out.println("TRANSACTION REPORT");
+        System.out.println("Please enter the date for this day: ");
+        Scanner scanner = new Scanner(System.in);
+        try {
+            String inputDate = scanner.nextLine();
+            boolean isNotValidDate = DateUtils.isNotValidDate(inputDate);
+            if(isNotValidDate) {
+                System.out.println("This is not a valid date or date format, please try again by pressing any key");
+                scanner.nextLine();
+                transactionReport();
+            }
+            else {
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                Date date = formatter.parse(inputDate);
+                JsonService jsonService = new JsonService();
+                ArrayList<Batch> allBatches = jsonService.jsonToBatches();
+                System.out.println("List of all batches and price sold for entered date: ");
+                allBatches.stream().filter(batch -> DateUtils.isSameDay(batch.getRecievedDate(), date)).forEach(batch -> System.out.println(batch.displayBatchCost()));
+                System.out.println("Return to menu with any key + enter");
+                scanner.nextLine();
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Invalid input. Please try again");
+            transactionReport();
+        }
     }
 
 }

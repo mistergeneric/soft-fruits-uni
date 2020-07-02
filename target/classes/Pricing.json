@@ -2,42 +2,6 @@
   {
     "fruitType": {
       "title": "Strawberry",
-      "batchCode": "ST"
-    },
-    "fruitPrices": {
-      "B": 20.0,
-      "A": 100.0,
-      "C": 20.0
-    },
-    "datePriced": "Jun 27, 2020, 11:59:40 AM"
-  },
-  {
-    "fruitType": {
-      "title": "Raspberry",
-      "batchCode": "RA"
-    },
-    "fruitPrices": {
-      "B": 20.0,
-      "A": 100.0,
-      "C": 20.0
-    },
-    "datePriced": "Jun 27, 2020, 11:59:49 AM"
-  },
-  {
-    "fruitType": {
-      "title": "Gooseberry",
-      "batchCode": "GO"
-    },
-    "fruitPrices": {
-      "B": 20.0,
-      "A": 100.0,
-      "C": 20.0
-    },
-    "datePriced": "Jun 27, 2020, 12:00:11 PM"
-  },
-  {
-    "fruitType": {
-      "title": "Blackberry",
       "batchCode": "BL"
     },
     "fruitPrices": {
@@ -46,5 +10,41 @@
       "C": 20.0
     },
     "datePriced": "Jun 27, 2020, 11:59:57 AM"
+  },
+  {
+    "fruitType": {
+      "title": "Strawberry",
+      "batchCode": "ST"
+    },
+    "fruitPrices": {
+      "B": 100.0,
+      "A": 100.0,
+      "C": 100.0
+    },
+    "datePriced": "Jul 2, 2020, 1:29:55 PM"
+  },
+  {
+    "fruitType": {
+      "title": "Gooseberry",
+      "batchCode": "GO"
+    },
+    "fruitPrices": {
+      "B": 100.0,
+      "A": 100.0,
+      "C": 100.0
+    },
+    "datePriced": "Jul 2, 2020, 1:30:11 PM"
+  },
+  {
+    "fruitType": {
+      "title": "Raspberry",
+      "batchCode": "RA"
+    },
+    "fruitPrices": {
+      "B": 100.0,
+      "A": 100.0,
+      "C": 100.0
+    },
+    "datePriced": "Jul 2, 2020, 1:30:04 PM"
   }
 ]

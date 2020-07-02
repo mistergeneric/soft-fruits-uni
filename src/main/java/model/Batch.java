@@ -1,12 +1,13 @@
 package model;
 
+import Utils.DateUtils;
 import model.fruit.Fruit;
-import model.fruit.Strawberry;
+import service.PriceService;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class Batch {
     private String batchNumber;
@@ -15,6 +16,7 @@ public class Batch {
     private int farmNumber;
     private Date recievedDate;
     private Map<String, Integer> grade;
+    private double totalCost;
 
     public Batch(Fruit fruit, int weight, int farmNumber) {
         this.fruit = fruit;
@@ -23,7 +25,7 @@ public class Batch {
         this.recievedDate = new Date();
         this.batchNumber = buildBatchNumber();
         this.grade = new HashMap<>();
-
+        totalCost = 0;
     }
 
     public String getBatchNumber() {
@@ -66,6 +68,10 @@ public class Batch {
         this.recievedDate = recievedDate;
     }
 
+    public Double getTotalCost() {
+        return totalCost;
+    }
+
     public Map<String, Integer> getGrade() {
         return grade;
     }
@@ -101,9 +107,42 @@ public class Batch {
         }
         for (Map.Entry mapElement : grade.entrySet()) {
             printGrades += (mapElement.getKey() + " " + ((int)mapElement.getValue())) + "%";
-            printGrades += ":  " + this.weight * (int)mapElement.getValue() + "KG \n";
+            printGrades += ":  " + ((this.weight * (int)mapElement.getValue()) /100)  + "KG \n";
         }
         return printGrades;
+    }
+
+    public void generateTotalCost() {
+        HashSet<Price> prices = new PriceService().findPrices();
+
+        Price foundPrice = prices
+                .stream()
+                .filter(price -> DateUtils.isSameDay(price.getDatePriced(), this.getRecievedDate()))
+                .filter(p -> p.getFruitType().equals(fruit)).findFirst().orElse(null);
+        if(foundPrice == null) {
+            this.totalCost = 0;
+        }
+        else {
+            this.totalCost = foundPrice.batchCost(this);
+        }
+    }
+
+    public String displayBatchCost() {
+        generateTotalCost();
+        StringBuilder batchCost = new StringBuilder("");
+        batchCost.append("BatchNumber: ").append(this.batchNumber).append("\n");
+        batchCost.append("Fruit: ").append(this.fruit).append("\n");
+        batchCost.append("Weight: ").append(this.weight).append("\n");
+        batchCost.append("Date: ").append(this.recievedDate).append("\n");
+        batchCost.append("Cost: ").append(this.totalCost).append("\n");
+        return batchCost.toString();
+
+    }
+
+    public String formatTotalCost() {
+        generateTotalCost();
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();
+        return formatter.format(this.totalCost);
     }
 
 

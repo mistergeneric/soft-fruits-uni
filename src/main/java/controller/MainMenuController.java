@@ -25,7 +25,7 @@ public class MainMenuController {
 
 
         String choice = scanner.nextLine();
-        boolean isNotValidMenuChoice = !(choice.equals("2") || choice.equals("1") || choice.equals("3") || choice.equals("4") || choice.equals("5"));
+        boolean isNotValidMenuChoice = !(choice.equals("2") || choice.equals("1") || choice.equals("3") || choice.equals("4") || choice.equals("5") || choice.equals("6"));
 
 
         if (isNotValidMenuChoice) System.exit(1);
@@ -44,8 +44,9 @@ public class MainMenuController {
                 "2. List all batches\n" +
                 "3. Show detailed batch information\n" +
                 "4. Grade/sort batch\n" +
-                "5. Pricing \n " +
-                "6. Quit\n";
+                "5. Pricing \n" +
+                "6. Transaction Report \n" +
+                "7. Quit \n";
     }
 
     public void mainMenuChoice(int choice) {
@@ -67,6 +68,8 @@ public class MainMenuController {
             case 5:
                 priceController.priceMenu();
                 break;
+            case 6:
+                priceController.transactionReport();
             default:
                 break;
         }
